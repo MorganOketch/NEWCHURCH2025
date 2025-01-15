@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sermon Archive - Bible Knowledge Journey</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        /* Journey Progress Bar */
+        .journey-progress {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .journey-progress-bar {
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Scripture Reference Tags */
+        .scripture-tag {
+            background-color: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Series Progress Indicator */
+        .series-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+        }
+
+        .progress-dot.completed {
+            background-color: #3b82f6;
+        }
+
+        .progress-dot.current {
+            background-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Study Tools Panel */
+        .study-tools {
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .study-tools h4 {
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Three Angels Theme */
+        .three-angels-banner {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Enhanced Sermon Card */
+        .sermon-card {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sermon-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Completion Tracking */
+        .completion-indicator {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        /* Knowledge Path Indicator */
+        .knowledge-path {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+        }
+
+        .knowledge-path-icon {
+            color: #3b82f6;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card {
+            background-color: #f8fafc;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e40af;
+        }
+
+    </style>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="/js/navbar.js" defer></script>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+    <div class="max-w-7xl mx-auto p-6">
+        <!-- Enhanced Header Section -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900">Bible Knowledge Journey</h1>
+                    <p class="text-gray-600 mt-2">Growing in understanding of God's Word</p>
+                </div>
+                <div class="flex gap-2">
+                    <button id="progressView" class="p-2 rounded-lg bg-blue-50 text-blue-700">
+                        My Progress
+                    </button>
+                    <div class="flex gap-2">
+                        <button id="gridView" class="p-2 rounded-lg">
+                            <i data-lucide="grid"></i>
+                        </button>
+                        <button id="listView" class="p-2 rounded-lg">
+                            <i data-lucide="list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Three Angels Messages Banner -->
+            <div class="three-angels-banner mb-6">
+                <h3 class="text-xl font-semibold mb-2">Three Angels' Messages Series</h3>
+                <p>Discover God's final message of mercy to the world</p>
+                <div class="journey-progress mt-4">
+                    <div class="journey-progress-bar" style="width: 60%"></div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-number">24</div>
+                    <div class="text-sm text-gray-600">Sermons Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="text-sm text-gray-600">Study Guides Used</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="text-sm text-gray-600">Series Completed</div>
+                </div>
+            </div>
+
+            <!-- Enhanced Search and Filters -->
+            <div class="bg-white p-6 rounded-xl shadow-sm mb-6">
+                <div class="flex flex-wrap gap-4 mb-4">
+                    <div class="flex-1 min-w-[300px]">
+                        <div class="relative">
+                            <i data-lucide="search" class="absolute left-3 top-3 text-gray-400"></i>
+                            <input
+                                type="text"
+                                id="searchInput"
+                                placeholder="Search sermons, Bible references, or topics..."
+                                class="w-full pl-10 pr-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                            />
+                        </div>
+                    </div>
+                    <button id="advancedFilterToggle" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-50 hover:bg-gray-100">
+                        <i data-lucide="filter"></i>
+                        Advanced Filters
+                    </button>
+                </div>
+
+                <!-- Advanced Filters Panel -->
+                <div id="advancedFilters" class="hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 border rounded-xl">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Bible Book</label>
+                            <select class="w-full p-2 border rounded-lg">
+                                <option>All Books</option>
+                                <option>Daniel</option>
+                                <option>Revelation</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Topic</label>
+                            <select class="w-full p-2 border rounded-lg">
+                                <option>All Topics</option>
+                                <option>First Angel's Message</option>
+                                <option>Second Angel's Message</option>
+                                <option>Third Angel's Message</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Study Level</label>
+                            <select class="w-full p-2 border rounded-lg">
+                                <option>All Levels</option>
+                                <option>Foundational</option>
+                                <option>Intermediate</option>
+                                <option>Advanced</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Series</label>
+                            <select class="w-full p-2 border rounded-lg">
+                                <option>All Series</option>
+                                <option>Prophecy Series</option>
+                                <option>Sanctuary Series</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Sermons Container -->
+        <div id="sermonContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Sermons will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Enhanced sermon data with additional fields
+        const sermons = [
+            {
+                id: 1,
+                title: "Understanding the 2300 Days Prophecy",
+                series: "Prophecies of Daniel & Revelation",
+                speaker: "Pastor John Smith",
+                date: "2024-12-28",
+                duration: "45 mins",
+                format: ["Audio", "Video", "Transcript"],
+                categories: ["Prophecy", "Daniel", "Sanctuary"],
+                description: "An in-depth study of Daniel 8:14 and its significance for our time.",
+                resources: ["Audio", "Transcript", "Study Guide", "Slides"],
+                tags: ["End Times", "Prophecy", "Sanctuary"],
+                views: 156,
+                featured: true,
+                bibleReferences: ["Daniel 8:14", "Daniel 9:24-27"],
+                completionRate: 85,
+                seriesProgress: 3,
+                totalInSeries: 5,
+                studyPoints: [
+                    "Understanding the Day-Year Principle",
+                    "The Cleansing of the Sanctuary",
+                    "The Investigative Judgment"
+                ]
+            },
+            // ... other sermons with similar enhanced data
+        ];
+
+        const renderSermons = () => {
+            const sermonContainer = document.getElementById('sermonContainer');
+            sermonContainer.innerHTML = '';
+            
+            sermons.forEach(sermon => {
+                const sermonCard = document.createElement('div');
+                sermonCard.className = 'sermon-card p-6';
+                
+                // Calculate series progress
+                const progressDots = Array(sermon.totalInSeries).fill(0)
+                    .map((_, i) => {
+                        const status = i < sermon.seriesProgress ? 'completed' : 
+                                     i === sermon.seriesProgress ? 'current' : '';
+                        return `<div class="progress-dot ${status}"></div>`;
+                    }).join('');
+
+                sermonCard.innerHTML = `
+                    <div class="completion-indicator">
+                        <i data-lucide="check-circle" class="text-green-500"></i>
+                        <span>${sermon.completionRate}% Complete</span>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mb-3">${sermon.title}</h3>
+                    
+                    <div class="series-progress">
+                        ${progressDots}
+                    </div>
+                    
+                    <div class="knowledge-path">
+                        <i data-lucide="map" class="knowledge-path-icon"></i>
+                        <span>Part ${sermon.seriesProgress + 1} of ${sermon.totalInSeries}</span>
+                    </div>
+                    
+                    <div class="flex flex-wrap mb-4">
+                        ${sermon.bibleReferences.map(ref => 
+                            `<span class="scripture-tag">${ref}</span>`
+                        ).join('')}
+                    </div>
+                    
+                    <p class="text-gray-700 mb-4">${sermon.description}</p>
+                    
+                    <div class="study-tools">
+                        <h4>Study Points</h4>
+                        <ul class="list-disc pl-4">
+                            ${sermon.studyPoints.map(point => 
+                                `<li class="text-sm text-gray-600">${point}</li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        ${sermon.resources.map(resource => `
+                            <button class="flex items-center gap-1 px-3 py-1 bg-blue-50 rounded-full text-sm text-blue-700">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                ${resource}
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                
+                sermonContainer.appendChild(sermonCard);
+            });
+            
+            // Initialize Lucide icons
+            lucide.createIcons();
+        };
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSermons();
+            
+            // Event listeners
+            document.getElementById('searchInput').addEventListener('input', renderSermons);
+            document.getElementById('advancedFilterToggle').addEventListener('click', () => {
+                document.getElementById('advancedFilters').classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

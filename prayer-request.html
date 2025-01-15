@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Request Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .prayer-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .prayer-requests {
+            margin-top: 30px;
+        }
+
+        .prayer-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+
+        .prayer-card h3 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+
+        .prayer-card p {
+            margin: 0;
+            color: #34495e;
+        }
+
+        .date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .anonymous {
+            font-style: italic;
+            color: #95a5a6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prayer Requests</h1>
+        
+        <form class="prayer-form" id="prayerForm">
+            <div>
+                <label for="name">Name (optional):</label>
+                <input type="text" id="name" placeholder="Your name or 'Anonymous'">
+            </div>
+            
+            <div>
+                <label for="request">Prayer Request:</label>
+                <textarea id="request" required placeholder="Share your prayer request here..."></textarea>
+            </div>
+            
+            <button type="submit">Submit Prayer Request</button>
+        </form>
+
+        <div class="prayer-requests" id="prayerRequests"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const prayerForm = document.getElementById('prayerForm');
+            const prayerRequests = document.getElementById('prayerRequests');
+            
+            // Load existing prayer requests from localStorage
+            let requests = JSON.parse(localStorage.getItem('prayerRequests')) || [];
+            
+            // Display existing prayer requests
+            displayPrayerRequests();
+            
+            prayerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value.trim() || 'Anonymous';
+                const requestText = document.getElementById('request').value.trim();
+                
+                if (requestText) {
+                    // Create new prayer request object
+                    const newRequest = {
+                        name: name,
+                        request: requestText,
+                        date: new Date().toLocaleString(),
+                        id: Date.now()
+                    };
+                    
+                    // Add to requests array
+                    requests.unshift(newRequest);
+                    
+                    // Save to localStorage
+                    localStorage.setItem('prayerRequests', JSON.stringify(requests));
+                    
+                    // Update display
+                    displayPrayerRequests();
+                    
+                    // Reset form
+                    prayerForm.reset();
+                }
+            });
+            
+            function displayPrayerRequests() {
+                prayerRequests.innerHTML = '';
+                
+                requests.forEach(request => {
+                    const requestElement = document.createElement('div');
+                    requestElement.className = 'prayer-card';
+                    
+                    requestElement.innerHTML = `
+                        <h3>${request.name === 'Anonymous' ? 
+                            '<span class="anonymous">Anonymous</span>' : 
+                            request.name}</h3>
+                        <p>${request.request}</p>
+                        <p class="date">${request.date}</p>
+                    `;
+                    
+                    prayerRequests.appendChild(requestElement);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

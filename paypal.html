@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support The Little Remnant - Donations</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        /* Scripture Banner */
+        .scripture-banner {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Donation Card */
+        .donation-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-width: 32rem;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        /* Amount Buttons */
+        .amount-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .amount-button {
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .amount-button:hover {
+            background: #e2e8f0;
+        }
+
+        .amount-button.selected {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        /* Custom Amount Input */
+        .custom-amount {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+
+        .custom-amount:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* Frequency Toggle */
+        .frequency-toggle {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            background: #f1f5f9;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .frequency-button {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .frequency-button.selected {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* PayPal Button */
+        .paypal-button {
+            background: #0070ba;
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .paypal-button:hover {
+            background: #005ea6;
+        }
+
+        /* Security Notice */
+        .security-notice {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+        }
+
+        /* Purpose Selection */
+        .purpose-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            font-size: 1rem;
+            background-color: white;
+        }
+
+        .purpose-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Scripture Banner -->
+    <div class="scripture-banner">
+        <p class="text-xl">"Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver."</p>
+        <p class="text-sm mt-2">- 2 Corinthians 9:7</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto p-4">
+        <div class="donation-card">
+            <h1 class="text-2xl font-bold mb-4 text-center">Support Our Ministry</h1>
+            
+            <!-- Donation Form -->
+            <form id="donationForm" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                <input type="hidden" name="cmd" value="_donations">
+                <input type="hidden" name="business" value="your-paypal-email@example.com">
+                <input type="hidden" name="currency_code" value="USD">
+                
+                <!-- Purpose Selection -->
+                <label for="purpose" class="block text-sm font-medium text-gray-700 mb-2">Purpose of Donation</label>
+                <select name="purpose" id="purpose" class="purpose-select">
+                    <option value="tithe">Tithe</option>
+                    <option value="offering">General Offering</option>
+                    <option value="building">Building Fund</option>
+                    <option value="missions">Missions</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <!-- Frequency Toggle -->
+                <div class="frequency-toggle">
+                    <div class="frequency-button selected" onclick="toggleFrequency(this, 'once')">One-time</div>
+                    <div class="frequency-button" onclick="toggleFrequency(this, 'monthly')">Monthly</div>
+                </div>
+
+                <!-- Predefined Amounts -->
+                <div class="amount-grid">
+                    <div class="amount-button" onclick="selectAmount(this, 50)">Ksh 50</div>
+                    <div class="amount-button" onclick="selectAmount(this, 100)">Ksh 100</div>
+                    <div class="amount-button" onclick="selectAmount(this, 250)">Ksh 250</div>
+                    <div class="amount-button" onclick="selectAmount(this, 500)">Ksh 500</div>
+                    <div class="amount-button" onclick="selectAmount(this, 1000)">Ksh 1,000</div>
+                    <div class="amount-button" onclick="selectAmount(this, 'custom')">Custom</div>
+                </div>
+
+                <!-- Custom Amount Input -->
+                <input type="number" name="amount" class="custom-amount" placeholder="Enter custom amount" min="1" step="0.01">
+
+                <!-- PayPal Button -->
+                <button type="submit" class="paypal-button">
+                    <i data-lucide="credit-card" class="w-5 h-5"></i>
+                    Donate Securely with PayPal
+                </button>
+
+                <!-- Security Notice -->
+                <div class="security-notice">
+                    <i data-lucide="shield" class="w-4 h-4"></i>
+                    <span>Your donation is secure. PayPal handles all payment processing.</span>
+                </div>
+            </form>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="text-center text-sm text-gray-600 mt-4">
+            <p>For questions about donations, please contact our treasury department:</p>
+            <p>Email: treasury@thelittleremnant.com</p>
+            <p>Phone: (+254) 456-7890</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Handle amount selection
+        function selectAmount(button, amount) {
+            // Remove selected class from all buttons
+            document.querySelectorAll('.amount-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked button
+            button.classList.add('selected');
+            
+            // Handle custom amount field
+            const customInput = document.querySelector('.custom-amount');
+            if (amount === 'custom') {
+                customInput.focus();
+                customInput.value = '';
+            } else {
+                customInput.value = amount;
+            }
+        }
+
+        // Handle frequency toggle
+        function toggleFrequency(button, frequency) {
+            // Remove selected class from all frequency buttons
+            document.querySelectorAll('.frequency-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked button
+            button.classList.add('selected');
+            
+            // Update hidden input for PayPal
+            const cmd = document.querySelector('input[name="cmd"]');
+            if (frequency === 'monthly') {
+                cmd.value = '_xclick-subscriptions';
+            } else {
+                cmd.value = '_donations';
+            }
+        }
+    </script>
+</body>
+</html>

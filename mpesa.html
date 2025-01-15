@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Giving &amp; Donations</title> <!-- Escaped & -->
+    <!-- PayPal SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c5282;
+            --secondary-color: #4299e1;
+            --background-color: #f7fafc;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+        }
+
+        .giving-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .giving-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .amount-btn {
+            padding: 0.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            background: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .amount-btn:hover,
+        .amount-btn.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .custom-amount {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 1rem 0;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+        }
+
+        .payment-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            transition: all 0.3s;
+        }
+
+        .mpesa-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .paypal-btn {
+            background: #0070BA;
+            color: white;
+        }
+
+        .payment-btn:hover {
+            opacity: 0.9;
+        }
+
+        .giving-type {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 1rem 0;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+        }
+
+        .recurring-option {
+            margin: 1rem 0;
+        }
+
+        #mpesa-form {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .mpesa-input {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+        }
+
+        .success-message {
+            background: #48BB78;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        .error-message {
+            background: #F56565;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Give &amp; Support Our Ministry</h1> <p>Your generosity helps us make a difference in our community and beyond.</p>
+        </div>
+
+        <div class="giving-options">
+            <div class="giving-card">
+                <h2>Make a Donation</h2>
+                
+                <label for="givingType">Select Giving Type</label> <!-- Added label for accessibility -->
+                <select class="giving-type" id="givingType">
+                    <option value="tithe">Tithe</option>
+                    <option value="offering">Offering</option>
+                    <option value="building">Building Fund</option>
+                    <option value="missions">Missions</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <div class="amount-options">
+                    <button class="amount-btn" data-amount="100">Ksh100</button>
+                    <button class="amount-btn" data-amount="500">Ksh500</button>
+                    <button class="amount-btn" data-amount="1000">Ksh1000</button>
+                </div>
+
+                <input type="number" class="custom-amount" id="customAmount" placeholder="Enter custom amount">
+
+                <div class="recurring-option">
+                    <input type="checkbox" id="recurring">
+                    <label for="recurring">Make this a monthly recurring donation</label>
+                </div>
+
+                <button class="payment-btn mpesa-btn intaSendPayButton"
+                 data-amount="100" 
+                 data-currency="KES"
+                 data-phone-number="254742065623"
+                  id="mpesaButton" onclick="handlePayment()">
+                    Pay Now
+                </button>
+
+                <!-- <div id="mpesa-form">
+                    <input type="tel" class="mpesa-input" id="phoneNumber" placeholder="Enter M-PESA Phone Number (254XXX)">
+                    <button class="payment-btn mpesa-btn" onclick="processMpesa()">Complete M-PESA Payment</button>
+                </div>
+
+                <div id="paypal-button-container"></div> -->
+            </div>
+
+            <div class="giving-card">
+                <h2>Why Give?</h2>
+                <p>"Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver." - 2 Corinthians 9:7</p>
+                <h3>Your Impact</h3>
+                <ul>
+                    <li>Support community outreach programs</li>
+                    <li>Help maintain and improve our facilities</li>
+                    <li>Fund mission work locally and globally</li>
+                    <li>Support youth and children's programs</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            Thank you for your generous donation! You will receive a confirmation email shortly.
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            There was an error processing your payment. Please try again.
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/intasend-inlinejs-sdk@4.0.7/build/intasend-inline.js"></script>
+    <script>
+        // Initialize selected amount
+        let selectedAmount = 0;
+        function handlePayment(){
+            new window.IntaSend({
+        publicAPIKey: "ISSecretKey_live_7ab18f1c-edee-49f2-b589-cc9e6d84d644",
+        live: true //set to true when going live
+        })
+        .on("COMPLETE", (results) => {console.log("Do something on success", results)})
+        .on("FAILED", (results) => {console.log("Do something on failure", results)})
+        .on("IN-PROGRESS", (results) => {console.log("Payment in progress status", results)})
+        }
+
+        // Amount button selection
+        document.querySelectorAll('.amount-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedAmount = parseInt(this.dataset.amount);
+                document.getElementById('customAmount').value = selectedAmount;
+            });
+        });
+
+        // Custom amount input
+        document.getElementById('customAmount').addEventListener('input', function() {
+            selectedAmount = parseInt(this.value) || 0;
+            document.querySelectorAll('.amount-btn').forEach(btn => btn.classList.remove('selected'));
+        });
+
+        // M-PESA button click handler
+        document.getElementById('mpesaButton').addEventListener('click', function() {
+            const mpesaForm = document.getElementById('mpesa-form');
+            mpesaForm.style.display = mpesaForm.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Process M-PESA payment
+        function processMpesa() {
+            const amount = document.getElementById('customAmount').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const givingType = document.getElementById('givingType').value;
+            const isRecurring = document.getElementById('recurring').checked;
+
+            // Validate inputs
+            if (!amount || !phoneNumber) {
+                showError('Please enter both amount and phone number');
+                return;
+            }
+
+            // Here you would integrate with your M-PESA API
+            // This is a simulation
+            setTimeout(() => {
+                showSuccess();
+                document.getElementById('mpesa-form').style.display = 'none';
+            }, 2000);
+        }
+
+        function showSuccess() {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // PayPal Integration
+        // Note: This is a placeholder for PayPal integration
+        // You'll need to replace this with actual PayPal buttons integration
+        window.onload = function() {
+            // PayPal button configuration would go here
+            // This is where you would initialize the PayPal button
+            // using their SDK and your client ID
+        }
+    </script>
+</body>
+</html>

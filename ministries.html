@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ministries</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7fafc;
+            color: #2d3748;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c5282;
+        }
+
+        .ministries-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .ministries-list li {
+            background: white;
+            margin: 0.5rem 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s;
+        }
+
+        .ministries-list li:hover {
+            background: #e2e8f0;
+        }
+
+        .ministries-list a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: #2d3748;
+            font-weight: bold;
+        }
+
+        .ministries-list a:hover {
+            color: #2c5282;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Our Ministries</h1>
+        <ul class="ministries-list">
+            <li><a href="youth-ministry.html" onclick="ministryClicked('Youth Ministry')">Youth Ministry</a></li>
+            <li><a href="womens-ministry.html" onclick="ministryClicked('Women\'s Ministry')">Women's Ministry</a></li>
+            <li><a href="mens-ministry.html" onclick="ministryClicked('Men\'s Ministry')">Men's Ministry</a></li>
+            <li><a href="children-ministry.html" onclick="ministryClicked('Children\'s Ministry')">Children's Ministry</a></li>
+            <li><a href="choir-ministry.html" onclick="ministryClicked('Choir Ministry')">Choir Ministry</a></li>
+            <li><a href="prayer-ministry.html" onclick="ministryClicked('Prayer Ministry')">Prayer Ministry</a></li>
+            <li><a href="bible-study.html" onclick="ministryClicked('Bible Study')">Bible Study</a></li>
+            <li><a href="outreach-ministry.html" onclick="ministryClicked('Community Outreach')">Community Outreach</a></li>
+        </ul>
+    </div>
+
+    <script>
+        function ministryClicked(ministryName) {
+            alert("You clicked on " + ministryName);
+        }
+    </script>
+</body>
+</html>

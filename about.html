@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About The Little Remnant - Since 1880</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <style>
+        /* Base styles */
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.7)),
+                        url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4rem;
+            background: linear-gradient(to bottom, transparent, #f8fafc);
+        }
+
+        /* Scripture Quote */
+        .scripture-quote {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            position: relative;
+            margin: -3rem auto 4rem;
+            max-width: 80%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .scripture-quote::before {
+            content: '"';
+            position: absolute;
+            top: -1rem;
+            left: 2rem;
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 4rem 0;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e2e8f0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 2px solid #fff;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            background: #dbeafe;
+            color: #1e40af;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            background: #1e40af;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 1rem;
+        }
+
+        .cta-button {
+            background: white;
+            color: #1e40af;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Footer Enhancements */
+        .footer {
+            background: white;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .contact-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            max-width: 24rem;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            background: #f1f5f9;
+            color: #1e40af;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .social-link:hover {
+            background: #dbeafe;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 class="text-4xl font-bold mb-4">The Little Remnant</h1>
+        <p class="text-xl">Preserving Truth Since 1880</p>
+    </div>
+
+    <!-- Scripture Quote -->
+    <div class="scripture-quote">
+        <p class="text-xl italic">"For the preaching of the cross is to them that perish foolishness; but unto us which are saved it is the power of God."</p>
+        <p class="text-sm mt-2">- 1 Corinthians 1:18</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto p-8">
+        <!-- Timeline Section -->
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3 class="text-xl font-semibold">1880</h3>
+                <p>Establishment of The Little Remnant in Western Australia</p>
+            </div>
+            <div class="timeline-item">
+                <h3 class="text-xl font-semibold">Early Years</h3>
+                <p>Building the foundation of truth and fellowship</p>
+            </div>
+            <div class="timeline-item">
+                <h3 class="text-xl font-semibold">Present Day</h3>
+                <p>Continuing the legacy while embracing modern methods of ministry</p>
+            </div>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i data-lucide="book-open"></i>
+                </div>
+                <h2 class="text-2xl font-semibold mb-4">Our Heritage</h2>
+                <p>A Sabbath-keeping congregation dedicated to preserving and sharing the original teachings of the Seventh Day Adventist faith while maintaining our independent status.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i data-lucide="target"></i>
+                </div>
+                <h2 class="text-2xl font-semibold mb-4">Our Mission</h2>
+                <p>Spreading the special 'testing truths' for our time through both traditional and modern means, with the demonstration of God's power and authority.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i data-lucide="users"></i>
+                </div>
+                <h2 class="text-2xl font-semibold mb-4">Our Identity</h2>
+                <p>A community of believers who love God and keep His commandments, living out our faith in every aspect of our lives.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i data-lucide="heart"></i>
+                </div>
+                <h2 class="text-2xl font-semibold mb-4">Our Community</h2>
+                <p>A welcoming family of believers united in purpose and dedicated to supporting each other in our spiritual journey.</p>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2 class="text-3xl font-bold mb-4">Join Our Community</h2>
+            <p class="text-xl mb-6">Be part of our mission to preserve and share God's truth</p>
+            <a href="#" class="cta-button font-semibold">Visit Us This Sabbath</a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="contact-card">
+                <h3 class="text-2xl font-semibold mb-4">Contact Us</h3>
+                <p class="mb-2">123 Church Street, City, State 12345</p>
+                <p class="mb-2">Phone: (123) 456-7890</p>
+                <p class="mb-4">Email: info@thelittleremnant.com</p>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <i data-lucide="facebook"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <i data-lucide="twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <i data-lucide="instagram"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="YouTube">
+                        <i data-lucide="youtube"></i>
+                    </a>
+                </div>
+            </div>
+            <p class="text-center mt-8">&copy; 2025 The Little Remnant. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

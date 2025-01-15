@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remnant Church - Events Calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2196f3;
+            --secondary-color: #4CAF50;
+            --text-color: #333;
+            --light-gray: #f8f9fa;
+            --border-color: #e0e0e0;
+            --radius: 8px;
+            --shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f7f9;
+        }
+
+        .calendar-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: #666;
+        }
+
+        .controls-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: var(--radius);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .event-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .event-card {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            padding: 1rem;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .event-date {
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            background: var(--primary-color);
+            color: white;
+            min-width: 80px;
+        }
+
+        .event-date .day {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .event-date .month {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .event-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: start;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--text-color);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .event-card {
+                grid-template-columns: 1fr;
+            }
+
+            .event-date {
+                width: 100%;
+            }
+
+            .event-actions {
+                justify-content: flex-start;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- <nav>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">Ministries <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="youth-ministry.html">Youth Ministry</a></li>
+                    <li><a href="womens-ministry.html">Women's Ministry</a></li>
+                    <li><a href="mens-ministry.html">Men's Ministry</a></li>
+                    <li><a href="children-ministry.html">Children's Ministry</a></li>
+                    <li><a href="choir-ministry.html">Choir Ministry</a></li>
+                    <li><a href="prayer-ministry.html">Prayer Ministry</a></li>
+                    <li><a href="bible-study.html">Bible Study</a></li>
+                    <li><a href="outreach-ministry.html">Community Outreach</a></li>
+                </ul>
+            </li>
+            <li><a href="sermons.html">Sermons</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav> -->
+    <div class="calendar-container">
+        <header class="page-header">
+            <h1>Upcoming Events</h1>
+            <p>Join us in fellowship and worship</p>
+        </header>
+
+        <div class="controls-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search events..." id="eventSearch">
+            </div>
+            <div class="filter-tags" id="filterTags">
+                <!-- Filled dynamically -->
+            </div>
+        </div>
+
+        <div class="event-list" id="eventList">
+            <!-- Filled dynamically -->
+        </div>
+    </div>
+
+    <script>
+        const churchEvents = {
+  events: [
+    {
+      id: 1,
+      title: "Sunday Morning Worship Service",
+      type: "worship",
+      description: "Join us for our weekly worship service celebrating God's grace.",
+      date: "2025-01-19",
+      time: "10:00",
+      endTime: "11:30",
+      location: "Main Sanctuary",
+      ministry: "Worship",
+      isRecurring: true,
+      recurringDays: ["Sunday"],
+      coordinator: "Pastor James Wilson",
+      contactEmail: "worship@remnantchurch.org"
+    },
+    {
+      id: 2,
+      title: "Youth Bible Study",
+      type: "youth",
+      description: "Weekly youth gathering for teenagers to study God's word together.",
+      date: "2025-01-17",
+      time: "18:30",
+      endTime: "20:00",
+      location: "Youth Center",
+      ministry: "Youth",
+      isRecurring: true,
+      recurringDays: ["Friday"],
+      coordinator: "Sarah Martinez",
+      contactEmail: "youth@remnantchurch.org"
+    },
+    {
+      id: 3,
+      title: "Prayer & Intercession Meeting",
+      type: "prayer",
+      description: "A dedicated time of corporate prayer for our church and community.",
+      date: "2025-01-16",
+      time: "19:00",
+      endTime: "20:30",
+      location: "Prayer Room",
+      ministry: "Prayer",
+      isRecurring: true,
+      recurringDays: ["Wednesday"],
+      coordinator: "Deacon Robert Chen",
+      contactEmail: "prayer@remnantchurch.org"
+    },
+    {
+      id: 4,
+      title: "Winter Revival Conference",
+      type: "special",
+      description: "Annual winter conference featuring guest speakers and worship leaders.",
+      date: "2025-01-24",
+      endDate: "2025-01-26",
+      time: "18:00",
+      endTime: "21:00",
+      location: "Main Sanctuary",
+      ministry: "Events",
+      isRecurring: false,
+      coordinator: "Events Team",
+      contactEmail: "events@remnantchurch.org",
+      registration: true,
+      registrationUrl: "#",
+      featured: true
+    },
+    {
+      id: 5,
+      title: "Community Outreach",
+      type: "outreach",
+      description: "Monthly community service project at the local food bank.",
+      date: "2025-01-18",
+      time: "09:00",
+      endTime: "12:00",
+      location: "City Food Bank",
+      ministry: "Outreach",
+      isRecurring: true,
+      recurringPattern: "Third Saturday",
+      coordinator: "Mary Thompson",
+      contactEmail: "outreach@remnantchurch.org",
+      registration: true,
+      registrationUrl: "#"
+    }
+  ],
+  categories: [
+    { id: "worship", name: "Worship Services", color: "#4A90E2" },
+    { id: "youth", name: "Youth Ministry", color: "#50E3C2" },
+    { id: "prayer", name: "Prayer Meetings", color: "#B8E986" },
+    { id: "outreach", name: "Outreach", color: "#F5A623" },
+    { id: "special", name: "Special Events", color: "#D0021B" }
+  ]
+};
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeEventPage();
+        });
+
+        function initializeEventPage() {
+            // Initialize filters
+            const filterContainer = document.getElementById('filterTags');
+            churchEvents.categories.forEach(category => {
+                const filterTag = document.createElement('button');
+                filterTag.className = 'filter-tag';
+                filterTag.textContent = category.name;
+                filterTag.style.backgroundColor = `${category.color}15`;
+                filterTag.style.color = category.color;
+                filterTag.dataset.type = category.id;
+                filterTag.addEventListener('click', () => filterEvents(category.id));
+                filterContainer.appendChild(filterTag);
+            });
+
+            // Initialize search
+            const searchInput = document.getElementById('eventSearch');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                renderEvents(filterEventsBySearch(searchTerm));
+            });
+
+            // Initial render
+            renderEvents(churchEvents.events);
+        }
+
+        function renderEvents(events) {
+            const eventList = document.getElementById('eventList');
+            eventList.innerHTML = '';
+
+            events.forEach(event => {
+                const eventDate = new Date(event.date);
+                const category = churchEvents.categories.find(cat => cat.type === event.type);
+
+                const eventCard = document.createElement('div');
+                eventCard.className = 'event-card';
+                eventCard.innerHTML = `
+                    <div class="event-date">
+                        <div class="day">${eventDate.getDate()}</div>
+                        <div class="month">${eventDate.toLocaleString('default', { month: 'short' })}</div>
+                    </div>
+                    <div class="event-info">
+                        <h3>${event.title}</h3>
+                        <p>${event.description}</p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-clock"></i> ${event.time}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${event.location}</span>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        ${event.registration 
+                            ? `<button class="btn btn-primary">Register Now</button>`
+                            : `<button class="btn btn-secondary">Add to Calendar</button>`
+                        }
+                    </div>
+                `;
+                eventList.appendChild(eventCard);
+            });
+        }
+
+        function filterEvents(type) {
+            const filteredEvents = type === 'all' 
+                ? churchEvents.events 
+                : churchEvents.events.filter(event => event.type === type);
+            renderEvents(filteredEvents);
+        }
+
+        function filterEventsBySearch(searchTerm) {
+            return churchEvents.events.filter(event => 
+                event.title.toLowerCase().includes(searchTerm) ||
+                event.description.toLowerCase().includes(searchTerm) ||
+                event.location.toLowerCase().includes(searchTerm)
+            );
+        }
+    </script>
+</body>
+</html>
