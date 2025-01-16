@@ -1,0 +1,163 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4; /* Light gray background */
+}
+
+/* Admin Container */
+.admin-container {
+  display: flex;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: #003366; /* Dark blue background */
+  color: white; /* White text */
+  height: 100vh; /* Full height */
+  padding: 20px;
+}
+
+.sidebar-header {
+  text-align: center;
+}
+
+.logo {
+  width: 100px; /* Adjust logo size */
+}
+
+.nav-links {
+  list-style-type: none; /* Remove bullet points */
+  margin-top: 20px;
+}
+
+.nav-links li {
+  padding: 15px 10px; /* Padding for each link */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.nav-links li:hover,
+.nav-links li.active {
+  background-color: #00509e; /* Lighter blue on hover/active */
+}
+
+.nav-links li i {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+/* Sidebar Footer Styles */
+.sidebar-footer {
+  position: absolute;
+  bottom: 20px;
+  width: calc(100% - 40px); /* Adjust for padding */
+}
+
+/* Main Content Styles */
+.main-content {
+  flex-grow: 1; /* Take up remaining space */
+  padding: 20px;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #00509e; /* Blue background for top bar */
+  color: white;
+  padding: 10px 20px;
+}
+
+.search-bar {
+  display: flex;
+}
+
+.search-bar input {
+  padding: 10px;
+  border-radius: 5px; /* Rounded corners for search input */
+  border: none; /* No border */
+}
+
+.top-bar-actions button {
+  background-color: #003366; /* Dark blue button background */
+  color: white; /* White text for buttons */
+  border: none; /* No border */
+  padding: 10px 15px;
+  margin-left: 10px; /* Space between buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.top-bar-actions button:hover {
+  background-color: #00509e; /* Lighter blue on hover */
+}
+
+/* Panel Styles */
+.panel {
+  margin-top: 20px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-header h2 {
+  color: #003366; /* Dark blue for panel headers */
+}
+
+.add-new-btn {
+  background-color: #00509e; /* Button color for adding new items */
+  color: white;
+  border-radius: 5px; /* Rounded corners for buttons */
+}
+
+.add-new-btn:hover {
+ background-color: #003366; /* Darker blue on hover */
+}
+
+/* Data Table Styles */
+.data-table table {
+ width: 100%;
+ border-collapse: collapse; /* Remove gaps between cells */
+ margin-top: 10px;
+}
+
+.data-table th, .data-table td {
+ padding: 10px;
+ text-align: left;
+ border-bottom: 1px solid #ccc; /* Light gray border for table rows */
+}
+
+.data-table th {
+ background-color: #00509e; /* Blue header background */
+ color: white; /* White text in header */
+}
+
+/* Stat Card Styles */
+.stat-card {
+ background-color: white; /* White background for cards */
+ border-radius: 5px; 
+ padding: 15px;
+ margin-bottom: 20px; 
+ box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow effect */
+}
+
+.stat-icon {
+ font-size: 24px; 
+ color:#003366 ; 
+}
+
+/* Footer Styles */
+footer {
+ text-align:center ;
+ padding :10 px ;
+ background-color :#00509e ; 
+ color:white ;
+}
